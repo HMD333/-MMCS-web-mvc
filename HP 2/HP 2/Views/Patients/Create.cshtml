@@ -1,0 +1,95 @@
+﻿@model HP.Models.CreatePatient
+
+@{
+    ViewData["Title"] = "Create A Patient";
+}
+
+<h1>Create A Patient</h1>
+
+<h4>Patient</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="patient.Name" class="control-label"></label>
+                <input asp-for="patient.Name" class="form-control" />
+                <span asp-validation-for="patient.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="patient.Age" class="control-label"></label>
+                <input asp-for="patient.Age" class="form-control" />
+                <span asp-validation-for="patient.Age" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Doctor.department" class="control-label"></label>
+                <select asp-for="Doctor.department" class="form-control" id="departmentSelect" onchange="updateDoctorDropdown()">
+                    <option value="">Select Department</option>
+                    @foreach (var dept in Model.Doctors.Select(d => d.department).Distinct())
+                    {
+                        <option value="@dept">@dept</option>
+                    }
+                </select>
+                <span asp-validation-for="Doctor.department" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" id="benchDropdown" style="display:none;">
+                <label class="control-label">Select Doctor:</label>
+                <select asp-for="Doctor.Id" class="form-control" id="doctorSelect">
+                    <option value="">Doctor Name</option>
+                </select>
+                <span asp-validation-for="Doctor.name" class="text-danger"></span> <!-- Ensure correct binding -->
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        const doctorsData = @Html.Raw(Json.Serialize(Model.Doctors));
+
+        function updateDoctorDropdown() {
+            const departmentSelect = document.getElementById('departmentSelect');
+            const doctorSelect = document.getElementById('doctorSelect');
+            const selectedDepartment = departmentSelect.value;
+
+            // Clear existing options
+            doctorSelect.innerHTML = '<option value="">Doctor Name</option>';
+
+            // Show the bench dropdown if a department is selected
+            const benchDropdown = document.getElementById('benchDropdown');
+            if (selectedDepartment) {
+                benchDropdown.style.display = 'block';
+
+                // Filter doctors based on the selected department
+                const filteredDoctors = doctorsData.filter(d => d.department === selectedDepartment);
+
+                // Populate the doctor dropdown
+                filteredDoctors.forEach(doc => {
+                    if (doc.isloged) {
+                        const option = document.createElement('option');
+                        option.value = doc.id; // Assuming name is unique
+                        option.textContent = doc.name;
+                        doctorSelect.appendChild(option);
+                    }
+                });
+            } else {
+                benchDropdown.style.display = 'none'; // Hide if no department is selected
+            }
+        }
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

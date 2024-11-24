@@ -1,0 +1,56 @@
+﻿@model IEnumerable<HP.Models.Doctor>
+
+@{
+    ViewData["Title"] = "All Doctor";
+}
+
+<h1>All Doctor</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.salary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isloged) 
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doctor in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => doctor.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => doctor.department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => doctor.salary)
+                </td>
+                <td>
+                <td>
+                        @Html.DisplayFor(modelItem => doctor.isloged)
+                </td>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@doctor.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@doctor.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@doctor.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,56 @@
+﻿@model HP.Models.Patients_Docter
+
+@{
+    ViewData["Title"] = "All Patients";
+}
+
+<h1>All Patients</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Patients.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patients.First().Age)
+            </th>
+            <th>
+                Docter Name
+            </th>
+            <th>
+                Docter Department
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Patients)
+        {
+            var PH = Model.PHs.LastOrDefault(p => p.patientID == item.Id);
+            var Doctor = Model.Doctors.FirstOrDefault(l => l.Id == PH.doctorID);
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Doctor.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Doctor.department)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

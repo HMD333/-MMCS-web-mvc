@@ -1,0 +1,66 @@
+﻿@model HP.Models.Show_Appointments
+
+@{
+    ViewData["Title"] = "All Appointment";
+}
+
+<h1>All Appointment</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Patient Name
+            </th>
+            <th>
+                Doctor Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.appointments.First().Visits)
+            </th>
+            <th>
+                End in
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.appointments) {
+            @foreach (var PH in Model.patient_Histories.Where(ph => ph.Id == item.PatientHistotyid).Distinct())
+            {
+                if (!PH.Treatment_Stat)
+                {
+                    var patient = Model.patients.FirstOrDefault(p => p.Id == PH.patientID);
+                    var patient_name = patient.Name;
+                    var doctor = Model.doctors.FirstOrDefault(p => p.Id == PH.doctorID);
+                    var doctor_name = doctor.name;
+                    var startingtime = PH.time.AddDays(item.duration * item.Visits);
+                    <tr>
+                        <td>
+                            @patient_name
+                        </td>
+                        <td>
+                            @doctor_name
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Visits)
+                        </td>
+                        <td>
+                            @startingtime
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                        </td>
+                    </tr>
+                }
+                
+            }
+        
+        }
+    </tbody>
+</table>

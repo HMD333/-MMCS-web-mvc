@@ -1,0 +1,58 @@
+﻿@model HP.Models.Make_Appointment
+
+@{
+    ViewData["Title"] = "Create An Appointment";
+}
+
+<h1>Create An Appointment</h1>
+
+<h4>Appointment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <select asp-for="appointment.PatientHistotyid" class="form-control" id="departmentSelect" onchange="updateDoctorDropdown()">
+                    <option value="">Select Appointment</option>
+                    @foreach (var PH in Model.patient_Histories.Distinct())
+                    {
+                        if (!PH.Treatment_Stat)
+                        {
+                            var patient = Model.patients.FirstOrDefault(p => p.Id == PH.patientID);
+                            var patient_name = patient.Name;
+                            var doctor = Model.doctors.FirstOrDefault(p => p.Id == PH.doctorID);
+                            var doctor_name = doctor.name;
+
+                            <option value="@PH.Id">@patient_name ||| @doctor_name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="appointment.PatientHistotyid" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="appointment.Visits" class="control-label"></label>
+                <input asp-for="appointment.Visits" class="form-control" />
+                <span asp-validation-for="appointment.Visits" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Days between visits</label>
+                <input asp-for="appointment.duration" class="form-control" />
+                <span asp-validation-for="appointment.duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

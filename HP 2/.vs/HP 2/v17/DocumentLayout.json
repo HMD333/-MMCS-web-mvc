@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Y4\\SM1\\ASP API\\HP 2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8606A1-CD97-4206-85EB-08F4F8C01FF6}|HP 2\\HP 2.csproj|d:\\y4\\sm1\\asp api\\hp 2\\hp 2\\migrations\\20241118154804_test.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8606A1-CD97-4206-85EB-08F4F8C01FF6}|HP 2\\HP 2.csproj|solutionrelative:hp 2\\migrations\\20241118154804_test.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20241118154804_test.cs",
+              "DocumentMoniker": "D:\\Y4\\SM1\\ASP API\\HP 2\\HP 2\\Migrations\\20241118154804_test.cs",
+              "RelativeDocumentMoniker": "HP 2\\Migrations\\20241118154804_test.cs",
+              "ToolTip": "D:\\Y4\\SM1\\ASP API\\HP 2\\HP 2\\Migrations\\20241118154804_test.cs",
+              "RelativeToolTip": "HP 2\\Migrations\\20241118154804_test.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T15:48:05.12Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

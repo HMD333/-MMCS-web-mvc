@@ -1,0 +1,58 @@
+﻿    @model HP.Models.Make_Appointment
+
+@{
+    ViewData["Title"] = "Appointment Details";
+}
+
+<h1>Appointment Details</h1>
+
+<div>
+    <h4>Patient AND Doctor</h4>
+    <hr />
+    <dl class="row">
+        @{
+            var patient = Model.patients.FirstOrDefault(p => p.Id == Model.patient_Historie.patientID);
+            var patient_name = patient.Name;
+            var doctor = Model.doctors.FirstOrDefault(p => p.Id == Model.patient_Historie.doctorID);
+            var doctor_name = doctor.name;
+            <dt class="col-sm-3">
+                The patint:
+            </dt>
+            <dd class="col-sm-10">
+                @patient_name 
+            </dd>
+            <dt class="col-sm-3">
+                Have appointment with Doctor:
+            </dt>
+            <dd class="col-sm-10">
+                @doctor_name
+            </dd>
+        }
+    </dl>
+</div>
+
+<div>
+    <h4>Appointments</h4>
+    <hr />
+    <dl class="row">
+        @{
+            var patient_Historie = Model.patient_Histories.FirstOrDefault(ph => ph.Id == Model.appointment.PatientHistotyid);
+            var time_stamp = patient_Historie.time;
+
+            for (var i = 0; i < Model.appointment.Visits; i++)
+            {
+                time_stamp = time_stamp.AddDays(Model.appointment.duration);
+                <dt class="col-sm-3">
+                    You have an appointminet in:
+                </dt>
+                <dd class="col-sm-10">
+                    @time_stamp
+                </dd>
+            }
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.appointment.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\HP 2.props" />
+</Project>
